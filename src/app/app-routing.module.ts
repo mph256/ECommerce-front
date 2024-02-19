@@ -50,6 +50,10 @@ const routes: Routes = [
     path: 'best-sellers', 
     loadChildren: () => import('./best-seller/best-seller.module').then(m => m.BestSellerModule) 
   },
+  { 
+    path: 'new-releases', 
+    loadChildren: () => import('./new-release/new-release.module').then(m => m.NewReleaseModule) 
+  },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 
   }

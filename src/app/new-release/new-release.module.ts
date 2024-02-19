@@ -4,8 +4,12 @@ import { CommonModule } from '@angular/common';
 import { NewReleaseRoutingModule } from './new-release-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+import { NewReleasesComponent } from './components/new-releases/new-releases.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    NewReleasesComponent
+  ],
   imports: [
     CommonModule,
     NewReleaseRoutingModule,

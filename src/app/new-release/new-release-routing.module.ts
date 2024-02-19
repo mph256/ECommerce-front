@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { NewReleasesComponent } from './components/new-releases/new-releases.component';
+
+const routes: Routes = [
+  { path: '', component: NewReleasesComponent }
+];
 
 @NgModule({
   imports: [
