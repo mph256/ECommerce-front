@@ -5,8 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './modules/material/material.module';
 
+import { CreditCardPipe } from './pipes/credit-card/credit-card.pipe';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    CreditCardPipe
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -14,7 +18,8 @@ import { MaterialModule } from './modules/material/material.module';
     MaterialModule
   ],
   exports: [
-    MaterialModule
+    MaterialModule,
+    CreditCardPipe
   ]
 })
 export class SharedModule { }
