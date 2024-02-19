@@ -11,6 +11,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { CategoryComponent } from './components/category/category.component';
 
@@ -18,6 +19,7 @@ import { CategoryComponent } from './components/category/category.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
+    HomeComponent,
     CategoryListComponent,
     CategoryComponent
   ],
