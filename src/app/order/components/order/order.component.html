@@ -1,0 +1,56 @@
+<mat-card class="order">
+    <mat-card-header>
+        <div class="column">
+            ORDER PLACED
+            <div class="date-order">{{ order.orderDate | date }}</div>
+        </div>
+        <div class="column">
+            TOTAL
+            <div class="amount">{{ order.amount | currency: 'EUR' }}</div>
+        </div>
+        <div class="column">
+            SHIP TO
+            <div class="row address-name" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+                {{ order.shippingAddress.name }}
+                <mat-icon>expand_more</mat-icon>
+            </div>
+        </div>
+        <span class="spacer"></span>
+        <div class="column">
+            <div class="id">ORDER #{{ order.id }}</div>
+        </div>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="column date-delivery">    
+                <ng-container [ngSwitch]="status">
+                    <h2 class="mat-h2">
+                        <ng-container *ngSwitchCase="'DELIVERED'">Delivered {{ order.deliveryDate | date }}</ng-container>
+                        <ng-container *ngSwitchCase="'CANCELED'">Canceled</ng-container>
+                        <ng-container *ngSwitchDefault>
+                            <ng-container *ngIf="!isLate(); else lateOrder">
+                                Estimated delivery {{ order.deliveryDate | date }}
+                            </ng-container>
+                            <ng-template #lateOrder>
+                                In progress
+                            </ng-template>
+                        </ng-container>
+                    </h2>
+                </ng-container>       
+                <app-item-list [items]="items" [page]="'orders'"></app-item-list>
+            </div>
+            <div class="column address" *ngIf="showAddress">
+                <div class="address-street">{{ order.shippingAddress.street }}</div>
+                <div class="address-city">{{ order.shippingAddress.city }} {{ order.shippingAddress.zipcode }}</div>
+                <div class="address-country">{{ order.shippingAddress.country.name }}</div>
+            </div>
+            <span class="spacer"></span>
+            <div class="column">
+                <button type="button" mat-raised-button (click)="onCancelOrder()" class="btn-cancel" *ngIf="isCancellable()">Cancel order</button>
+                <div class="spinner" *ngIf="loading">
+                    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

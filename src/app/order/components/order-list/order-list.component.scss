@@ -1,0 +1,46 @@
+.container {
+    margin: 2em;
+}
+
+.row {
+    display: flex;
+}
+
+.center-x {
+    justify-content: center;
+}
+
+.orders {
+
+    width: 61em;
+    min-width: 42.2em;
+
+    app-order:not(:last-child) {
+        display: block;
+        margin-bottom: 1em;
+    }
+
+}
+
+.products-ordered {
+
+    width: 22em;
+    min-width: 22em;
+    margin-left: 1em;
+
+    mat-card-header {
+        justify-content: center;
+    }
+
+}
+
+.empty {
+    height: 7em;
+    width: 84em;
+    min-width: 8.9em;
+    text-align: center;
+}
+
+mat-card-header {
+    margin-bottom: 1em;
+}

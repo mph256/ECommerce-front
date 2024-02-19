@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row center-x">
+        <ng-container *ngIf="orders$ | async as orders">
+            <ng-container *ngIf="orders.length > 0; else empty">
+                <div class="orders">
+                    <h2 class="mat-h2">Your Orders</h2>
+                    <app-order *ngFor="let order of ordersToShow" [order]="order"
+                        (cancelOrderEvent)="onCancelOrder($event)">
+                    </app-order>
+                    <mat-paginator [length]="orders.length" 
+                        pageIndex="0" [pageSize]="ordersPerPage" hidePageSize="true" [pageSizeOptions]="[ordersPerPage]" showFirstLastButtons="true"
+                        (page)="onPage($event, orders)" 
+                        *ngIf="orders.length > ordersPerPage">
+                    </mat-paginator>
+                </div>  
+                <mat-card class="products-ordered">
+                    <mat-card-header>
+                        <mat-card-title>Buy it again</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <app-product-list [page]="'orders'"></app-product-list>
+                    </mat-card-content>
+                </mat-card>
+            </ng-container>
+            <ng-template #empty>
+                <mat-card class="empty">
+                    <mat-card-header>
+                        <mat-card-title>Your Orders</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        No orders yet.
+                    </mat-card-content>
+                </mat-card>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>

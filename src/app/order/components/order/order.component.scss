@@ -1,0 +1,55 @@
+.row {
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.order {
+
+    .address {
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        border-radius: 2%;
+        position: absolute;
+        left: 13.4em;
+        padding: .5em;
+        z-index: 100;
+    }
+
+    .address-name mat-icon {
+        margin-top: -.09em;
+    }
+
+    .date-delivery {
+        margin-top: 1em;
+    }
+
+}
+
+.btn-cancel {
+    background-color: #e74c3c;
+    color: #ffffff;
+    margin-top: 1.2em;
+}
+
+.spinner {
+    margin: 1em 0 0 .7em;
+}
+
+mat-card-header {
+
+    background-color: #ecf0f1;
+    padding-bottom: .5em;
+
+    .column:not(:last-child) {
+        margin-right: 1em;
+    }
+
+}
