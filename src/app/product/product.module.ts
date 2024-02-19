@@ -6,8 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 
 import { ReviewService } from './services/review/review.service';
 
+import { TimeAgoPipe } from './pipes/time-ago/time-ago.pipe';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    TimeAgoPipe
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
