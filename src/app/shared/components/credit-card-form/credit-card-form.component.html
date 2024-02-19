@@ -1,0 +1,55 @@
+<div [ngClass]="{ container: !isCheckoutPage }">
+    <div class="row center-x">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Add credit card</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="images">
+                    <div class="row center-x">
+                        <img src="/assets/images/visa.PNG" alt="Visa logo" class="image">
+                        <img src="/assets/images/mastercard.PNG" alt="Mastercard logo" class="image">
+                        <img src="/assets/images/american_express.PNG" alt="American Express logo" class="image">
+                    </div>
+                </div>
+                <form [formGroup]="creditCardForm" class="form">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Card number</mat-label>
+                            <input type="text" minlength="8" maxlength="19" matInput [formControl]="numberCtrl">
+                            <mat-error>{{ getFormControlErrorText(numberCtrl) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name on card</mat-label>
+                            <input type="text" minlength="3" maxlength="50" matInput [formControl]="holderNameCtrl">
+                            <mat-error>{{ getFormControlErrorText(holderNameCtrl) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Expiration date (DD/MM/YYYY)</mat-label>
+                            <input type="text" matInput [min]="minDate" [matDatepicker]="picker" [formControl]="expirationDateCtrl">
+                            <mat-error>{{ getFormControlErrorText(expirationDateCtrl) }}</mat-error>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>CVC</mat-label>
+                            <input type="text" minlength="3" maxlength="3" matInput [formControl]="CVCCtrl">
+                            <mat-error>{{ getFormControlErrorText(CVCCtrl) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row form-actions">
+                        <button mat-raised-button (click)="onAddCreditCard()" [disabled]="creditCardForm.invalid || loading" [ngClass]="{ btn: creditCardForm.valid && !loading }">Add</button>
+                        <button type="button" mat-raised-button (click)="onCancel()">Cancel</button>
+                    </div>
+                    <div class="form-row form-spinner" *ngIf="loading">
+                        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

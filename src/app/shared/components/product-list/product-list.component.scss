@@ -1,0 +1,17 @@
+.container {
+    margin: 2em;
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+}
+
+.products app-product:not(:last-child) {
+    display: block;
+    margin-bottom: 1em;
+}
+
+mat-grid-tile {
+    max-width: 17em;
+}

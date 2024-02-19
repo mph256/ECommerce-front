@@ -1,0 +1,36 @@
+<ng-container *ngIf="!isOrdersPage; else ordersPage">
+    <mat-card (click)="onViewProduct()" class="product">
+        <img [src]="product.images[0].file" [alt]="product.name" class="image">
+        <mat-card-title>{{ product.name }}</mat-card-title>
+        <div class="row">
+            <app-rating [rating]="product.rating ? product.rating-1 : -1" [readOnly]="true"></app-rating>
+            <div class="length">
+                <ng-container *ngIf="(product.reviews?.length || 0) > 1; else oneRatingLabel">
+                    {{ product.reviews?.length }} ratings
+                </ng-container>
+                <ng-template #oneRatingLabel>
+                    {{ product.reviews?.length || '0' }} rating
+                </ng-template>
+            </div>
+        </div>
+        <div class="price">
+            {{ product.price | currency: 'EUR' }}
+        </div>
+    </mat-card>
+</ng-container>
+<ng-template #ordersPage>
+    <div class="product-ordered">
+        <div class="row">
+            <img [src]="product.images[0].file" [alt]="product.name" (click)="onViewProduct()" class="image">
+            <div class="information">
+                <div class="name">
+                    <a routerLink="/categories/{{ product.categories[0].name.toLowerCase() + '/products/' + product.id }}">{{ product.name }}</a>
+                </div>
+                <div class="price">
+                    {{ product.price | currency: 'EUR' }}
+                </div>
+                <button type="button" mat-raised-button (click)="onAddToCart()" [disabled]="product.quantityAvailable === 0" [ngClass]="{ btn: product.quantityAvailable !== 0 }">Add to cart</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

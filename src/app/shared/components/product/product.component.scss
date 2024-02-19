@@ -1,0 +1,54 @@
+.row {
+    display: flex;
+}
+
+.product {
+
+    min-height: 23em;
+    padding: 1em;
+    margin: 1em;
+    cursor: pointer;
+
+    .image {
+        height: 13em;
+        width: 13em;
+        border-radius: 1%;
+    }
+
+    .price {
+        margin-top: -.5em;
+    }
+
+}
+
+.product-ordered {
+
+    .image {
+        height: 9.7em;
+        width: 9.7em;
+        min-width: 9.7em;;
+        border-radius: 2%;
+        margin-right: 1em;
+        cursor: pointer;
+    }
+
+    .name {
+        font-weight: 500;
+        margin-bottom: .5em;
+    }
+
+    .price {
+        margin-bottom: .7em;
+    }
+
+}
+
+.btn {
+    background-color: #3a8eba;
+    color: #ffffff;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}

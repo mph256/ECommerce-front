@@ -1,0 +1,8 @@
+<span [ngClass]="{ 'read-only': readOnly }">
+    <mat-icon *ngFor="let star of stars; let index = index"
+        (mouseenter)="onMouseEnter(index)"
+        (mouseleave)="onMouseLeave()"
+        (click)="onClick(index)"
+        [ngClass]="{ selected: (rating >= index) }">star
+    </mat-icon>
+</span>

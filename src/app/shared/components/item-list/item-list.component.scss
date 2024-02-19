@@ -1,0 +1,18 @@
+.item {
+    width: 69em;
+    min-width: 34.5em;
+}
+
+mat-card {
+    padding: 1em;
+}
+
+mat-card:not(:last-child) {
+    display: block;
+    margin-bottom: 1em;
+}
+
+app-item:not(:last-child) {
+    display: block;
+    margin-bottom: 1em;
+}

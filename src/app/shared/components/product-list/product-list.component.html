@@ -1,0 +1,42 @@
+<ng-container *ngIf="page !== 'orders'; else ordersPage">
+    <div class="container" *ngIf="products$ | async as products">
+        <ng-container *ngIf="products.length > 0; else empty">
+            <mat-grid-list [cols]="cols" rowHeight="24em" (window:resize)="onResize($event)">
+                <mat-grid-tile *ngFor="let product of productsToShow">
+                    <app-product [product]="product"
+                        (addToCartEvent)="onAddToCart($event)"
+                        (viewProductEvent)="onViewProduct($event)">
+                    </app-product>        
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-paginator [length]="products.length" 
+                pageIndex="0" [pageSize]="productsPerPage" hidePageSize="true" [pageSizeOptions]="[productsPerPage]" showFirstLastButtons="true"
+                (page)="onPage($event, products)" 
+                *ngIf="products.length > productsPerPage">
+            </mat-paginator>
+        </ng-container>
+        <ng-template #empty>
+            <p class="empty">
+                <ng-container *ngIf="!isSearch; else search">
+                    No products yet.
+                </ng-container>
+                <ng-template #search>
+                    No results.
+                </ng-template>
+            </p>
+        </ng-template>
+    </div>
+</ng-container>
+<ng-template #ordersPage>
+    <div class="products">
+        <app-product *ngFor="let product of productsToShow" [product]="product" [isOrdersPage]="true"
+            (addToCartEvent)="onAddToCart($event)"
+            (viewProductEvent)="onViewProduct($event)">
+        </app-product>
+        <mat-paginator [length]="products.length" 
+            pageIndex="0" [pageSize]="productsPerPage" hidePageSize="true" [pageSizeOptions]="[productsPerPage]" showFirstLastButtons="true"
+            (page)="onPage($event, products)" 
+            *ngIf="products.length > productsPerPage">
+        </mat-paginator>
+    </div>
+</ng-template>

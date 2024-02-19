@@ -1,0 +1,40 @@
+
+<ng-container *ngIf="'orders' !== page; else ordersPage">
+    <ng-container *ngIf="cart$ | async as cart">
+        <ng-container *ngIf="'cart' === page; else checkoutPage">
+            <mat-card *ngFor="let item of itemsToShow" class="item">
+                <app-item [item]="item" 
+                    (updateItemQuantityEvent)="onUpdateItemQuantity($event)" 
+                    (updateItemIsGiftEvent)="onUpdateItemIsGift($event)" 
+                    (deleteItemEvent)="onDeleteItem($event)"
+                    (viewProductEvent)="onViewProduct($event)">
+                </app-item>
+            </mat-card>
+        </ng-container>
+        <ng-template #checkoutPage>
+            <app-item *ngFor="let item of itemsToShow" [item]="item" 
+                (updateItemQuantityEvent)="onUpdateItemQuantity($event)" 
+                (updateItemIsGiftEvent)="onUpdateItemIsGift($event)" 
+                (deleteItemEvent)="onDeleteItem($event)"
+                (viewProductEvent)="onViewProduct($event)">
+            </app-item>
+        </ng-template>
+        <mat-paginator [length]="cart.items.length" 
+            pageIndex="0" [pageSize]="itemsPerPage" hidePageSize="true" [pageSizeOptions]="[itemsPerPage]" showFirstLastButtons="true"
+            (page)="onPage($event, cart.items)" 
+            *ngIf="cart.items.length > itemsPerPage">
+        </mat-paginator>
+    </ng-container>
+</ng-container>
+<ng-template #ordersPage>
+    <app-item *ngFor="let item of itemsToShow" [item]="item" [isOrdersPage]="true" [showReviewBtn]="canAddReview(item)"
+        (buyItAgainEvent)="onBuyItAgain($event)"
+        (addReviewEvent)="onAddReview($event)"
+        (viewProductEvent)="onViewProduct($event)">
+    </app-item>
+    <mat-paginator [length]="items.length" 
+        pageIndex="0" [pageSize]="itemsPerPage" hidePageSize="true" [pageSizeOptions]="[itemsPerPage]" showFirstLastButtons="true"
+        (page)="onPage($event, items)" 
+        *ngIf="items.length > itemsPerPage">
+    </mat-paginator>
+</ng-template>

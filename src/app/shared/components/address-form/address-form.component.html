@@ -1,0 +1,70 @@
+<div [ngClass]="{ container: !isCheckoutPage }">
+    <div class="row center-x">
+        <mat-card>
+            <mat-card-header>    
+                <mat-card-title>
+                    <ng-container *ngIf="'add' === formType; else updateTitle">
+                        Add address
+                    </ng-container>
+                    <ng-template #updateTitle>
+                        <mat-card-title>Edit address</mat-card-title>
+                    </ng-template>
+                </mat-card-title> 
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="addressForm" class="form">
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input type="text" minlength="3" maxlength="50" matInput [formControl]="nameCtrl">
+                            <mat-error>{{ getFormControlErrorText(nameCtrl) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Street</mat-label>
+                            <input type="text" minlength="3" maxlength="255" matInput [formControl]="streetCtrl">
+                            <mat-error>{{ getFormControlErrorText(streetCtrl) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input type="text" minlength="3" maxlength="139" matInput [formControl]="cityCtrl">
+                            <mat-error>{{ getFormControlErrorText(cityCtrl) }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Zipcode</mat-label>
+                            <input type="text" minlength="5" maxlength="5" matInput [formControl]="zipcodeCtrl">
+                            <mat-error>{{ getFormControlErrorText(zipcodeCtrl) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Country</mat-label>
+                            <mat-select matInput [compareWith]="compareCountries" formControlName="country">
+                                <mat-option *ngFor="let country of countries$ | async" [value]="country">{{ country.name }}</mat-option>
+                            </mat-select>
+                            <mat-error>This field is required</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row form-message" *ngIf="message && !loading">
+                        <small>{{ message }}</small>
+                    </div>
+                    <div class="form-row form-actions">
+                        <ng-container *ngIf="'add' === formType; else updateForm">
+                            <button mat-raised-button (click)="onSubmit()" [disabled]="addressForm.invalid || loading" [ngClass]="{ btn: addressForm.valid && !loading }">Add</button>
+                        </ng-container>
+                        <ng-template #updateForm>
+                            <button mat-raised-button (click)="onSubmit()" [disabled]="addressForm.invalid || loading" [ngClass]="{ btn: addressForm.valid && !loading }">Edit</button>
+                        </ng-template>    
+                        <button type="button" mat-raised-button (click)="onCancel()">Cancel</button>
+                    </div>
+                    <div class="form-row form-spinner" *ngIf="loading">
+                        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

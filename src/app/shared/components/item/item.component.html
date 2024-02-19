@@ -1,0 +1,63 @@
+<div class="row">
+    <img [src]="item.product.images[0].file" [alt]="item.product.name" (click)="onViewProduct()" class="image">
+    <div class="information">
+        <ng-container *ngIf="!isOrdersPage; else ordersPage">
+            <h2 class="mat-h2"><a routerLink="/categories/{{ item.product.categories[0].name.toLowerCase() + '/products/' + item.product.id }}">{{ item.product.name }}</a></h2>
+            <div class="price">
+                {{ item.product.price | currency: 'EUR' }}
+            </div>
+            <form [formGroup]="itemForm" class="form">
+                <div class="form-row">
+                    <div>
+                        <ng-container *ngIf="itemForm.value.quantity && 10 > itemForm.value.quantity; else textInput">  
+                            <mat-form-field appearance="outline">
+                                <mat-label>Quantity</mat-label>
+                                <mat-select matInput [formControl]="quantityCtrl">
+                                    <mat-option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]" [disabled]="i > item.product.quantityAvailable" [value]="i">{{ i }}</mat-option>
+                                    <mat-option [value]="10" [disabled]="10 > item.product.quantityAvailable">10+</mat-option>
+                                </mat-select>
+                                <mat-error>{{ getFormControlErrorText(quantityCtrl) }}</mat-error>
+                            </mat-form-field>
+                        </ng-container>
+                        <ng-template #textInput>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Quantity</mat-label>
+                                <input type="number" min="1" [max]="item.product.quantityAvailable" matInput [formControl]="quantityCtrl">
+                                <mat-error>{{ getFormControlErrorText(quantityCtrl) }}</mat-error>
+                            </mat-form-field>
+                        </ng-template> 
+                        <button mat-flat-button (click)="onDeleteItem()" [disabled]="loading" class="btn-delete">Delete</button>
+                    </div>
+                    <div class="form-spinner" *ngIf="loading">
+                        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <mat-checkbox [formControl]="isGiftCtrl" class="checkbox">
+                        Is it a gift ?
+                    </mat-checkbox>
+                </div>
+            </form>
+        </ng-container>
+        <ng-template #ordersPage>
+            <div class="name">
+                <a routerLink="/categories/{{ item.product.categories[0].name.toLowerCase() + '/products/' + item.product.id }}">{{ item.product.name }}</a>
+            </div>
+            <div class="quantity">
+                Quantity: {{ item.quantity }}
+            </div>
+            <div class="gift" *ngIf="item.isGift">
+                Gift: Yes
+            </div>
+            <div class="actions">
+                <div class="row">
+                    <button type="button" mat-raised-button (click)="onBuyItAgain()" [disabled]="item.product.quantityAvailable === 0" [ngClass]="{ btn: item.product.quantityAvailable > 0 }">Buy it again</button>
+                    <button type="button" mat-raised-button (click)="onAddReview()" class="btn" *ngIf="showReviewBtn">Add a product review</button>
+                    <div class="spinner" >
+                        <mat-progress-spinner mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

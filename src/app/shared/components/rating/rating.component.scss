@@ -1,0 +1,15 @@
+.selected {
+    color: #ffd700;
+}
+
+.read-only mat-icon:first-of-type {
+    margin-left: -.15em;
+}
+
+mat-icon {
+    font-size: 1em;
+}
+
+mat-icon:not(:first-of-type) {
+    margin-left: -.5em;
+}
