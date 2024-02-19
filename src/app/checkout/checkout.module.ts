@@ -5,6 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CheckoutRoutingModule } from './checkout-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+import { PromotionService } from './services/promotion/promotion.service';
+import { DeliveryOptionService } from './services/delivery-option/delivery-option.service';
+import { OrderService } from './services/order/order.service';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -13,6 +17,10 @@ import { SharedModule } from '../shared/shared.module';
     CheckoutRoutingModule,
     SharedModule
   ],
-  providers: []
+  providers: [
+    PromotionService,
+    DeliveryOptionService,
+    OrderService
+  ]
 })
 export class CheckoutModule { }
