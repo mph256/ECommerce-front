@@ -1,0 +1,57 @@
+<form [formGroup]="categoryForm" class="form">
+    <ng-container *ngIf="'delete' !== formType; else deleteForm">
+        <div class="form-row" *ngIf="'update' === formType">
+            <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select matInput formControlName="category" #selectedCategory (valueChange)="onCategoryChange(selectedCategory.value)">
+                    <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category.name }}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input type="text" matInput [formControl]="nameCtrl">
+                <mat-error>{{ getFormControlErrorText(nameCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Image</mat-label>
+                <input type="text" matInput readonly formControlName="image" (click)="hiddenInput.click()">
+                <mat-icon matSuffix>attach_file</mat-icon>
+                <input type="file" hidden #hiddenInput (change)="onFileChange($event)">
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row form-actions">
+            <ng-container *ngIf="'add' === formType; else updateForm">
+                <button mat-raised-button (click)="onSubmit()" [disabled]="categoryForm.invalid || loading" [ngClass]="{ btn: categoryForm.valid && !loading }">Add</button>
+            </ng-container>
+            <ng-template #updateForm>
+                <button mat-raised-button (click)="onSubmit()" [disabled]="categoryForm.invalid || loading" [ngClass]="{ btn: categoryForm.valid && !loading }">Update</button>
+            </ng-template>
+        </div>
+    </ng-container>
+    <ng-template #deleteForm>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select matInput formControlName="category">
+                    <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category.name }}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row form-actions">
+            <button mat-raised-button (click)="onSubmit()" [disabled]="categoryForm.invalid || loading" [ngClass]="{ btn: categoryForm.valid && !loading }">Delete</button>
+        </div>
+    </ng-template>
+    <div class="form-row form-spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div class="form-row form-message" *ngIf="message && !loading">
+        <small>{{ message }}</small>
+    </div>
+</form>

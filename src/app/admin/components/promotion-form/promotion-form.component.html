@@ -1,0 +1,64 @@
+<form [formGroup]="promotionForm" class="form">
+    <ng-container *ngIf="'delete' !== formType; else deleteForm">
+        <div class="form-row" *ngIf="'update' === formType">
+            <mat-form-field appearance="outline" *ngIf="promotions$ | async">
+                <mat-label>Promotion</mat-label>
+                <mat-select matInput formControlName="promotion" #selectedPromotion (valueChange)="onPromotionChange(selectedPromotion.value)">
+                    <mat-option *ngFor="let promotion of activePromotions" [value]="promotion">{{ promotion.code }}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Code</mat-label>
+                <input type="text" matInput [formControl]="codeCtrl">
+                <mat-error>{{ getFormControlErrorText(codeCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Percentage</mat-label>
+                <input type="number" min="5" max="50" matInput [formControl]="percentageCtrl">
+                <mat-error>{{ getFormControlErrorText(percentageCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Expiration date (DD/MM/YYYY)</mat-label>
+                <input type="text" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" [formControl]="expirationDateCtrl">
+                <mat-error>{{ getFormControlErrorText(expirationDateCtrl) }}</mat-error>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="form-row form-actions">
+            <ng-container *ngIf="'add' === formType; else updateForm">
+                <button mat-raised-button (click)="onSubmit()" [disabled]="promotionForm.invalid || loading" [ngClass]="{ btn: promotionForm.valid && !loading }">Add</button>
+            </ng-container>
+            <ng-template #updateForm>
+                <button mat-raised-button (click)="onSubmit()" [disabled]="promotionForm.invalid || loading" [ngClass]="{ btn: promotionForm.valid && !loading }">Update</button>
+            </ng-template>
+        </div>
+    </ng-container>
+    <ng-template #deleteForm>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Promotion</mat-label>
+                <mat-select matInput formControlName="promotion">
+                    <mat-option *ngFor="let promotion of promotions$ | async" [value]="promotion">{{ promotion.code }}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row form-actions">
+            <button mat-raised-button (click)="onSubmit()" [disabled]="promotionForm.invalid || loading" [ngClass]="{ btn: promotionForm.valid && !loading }">Delete</button>
+        </div>
+    </ng-template>
+    <div class="form-row form-spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div class="form-row form-message" *ngIf="message && !loading">
+        <small>{{ message }}</small>
+    </div>
+</form>

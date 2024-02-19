@@ -60,6 +60,10 @@ const routes: Routes = [
     canActivate: [authenticationGuard, authorizationGuard], data: { role: 'SELLER' },
     loadChildren: () => import('./sell/sell.module').then(m => m.SellModule) 
   },
+  { path: 'admin', 
+    canActivate: [authenticationGuard, authorizationGuard], data: { role: 'ADMIN' },
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) 
+  },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 
   }

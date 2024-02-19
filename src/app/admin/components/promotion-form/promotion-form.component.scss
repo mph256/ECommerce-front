@@ -1,0 +1,40 @@
+.form {
+
+    margin-top: 1.5em;
+
+    .form-spinner {
+        margin-top: 1.5em;
+    }
+
+    .form-message {
+        color: #228B22;
+        margin-top: 1em;
+    }
+    
+    .btn {
+        background-color: #3a8eba;
+        color: #ffffff;
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper {
+        height: 2.5em;
+    }
+    
+    ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+        padding-bottom: 16px; 
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 9px;
+    }
+    
+    ::ng-deep .mat-mdc-icon-button.mat-mdc-button-base {
+        margin-top: -.5em ;
+        margin-right: .05em;
+    }
+    
+    mat-form-field {
+        width: 24em;
+    }
+
+}

@@ -1,0 +1,11 @@
+.container {
+    margin: 2em;
+}
+
+mat-card:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+mat-card-header {
+    margin-bottom: 1em;
+}

@@ -1,0 +1,53 @@
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Manage user roles</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" dynamicHeight>
+                <mat-tab label="Add">
+                    <app-role-form [formType]="'add'"></app-role-form>
+                </mat-tab>
+                <mat-tab label="Remove">
+                    <app-role-form [formType]="'remove'"></app-role-form>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Manage promotions</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" dynamicHeight>
+                <mat-tab label="Add">
+                    <app-promotion-form [formType]="'add'"></app-promotion-form>
+                </mat-tab>
+                <mat-tab label="Update">
+                    <app-promotion-form [formType]="'update'"></app-promotion-form>
+                </mat-tab>
+                <mat-tab label="Delete">
+                    <app-promotion-form [formType]="'delete'"></app-promotion-form>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Manage categories</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" dynamicHeight>
+                <mat-tab label="Add">
+                    <app-category-form [formType]="'add'"></app-category-form>
+                </mat-tab>
+                <mat-tab label="Update">
+                    <app-category-form [formType]="'update'"></app-category-form>
+                </mat-tab>
+                <mat-tab label="Delete">
+                    <app-category-form [formType]="'delete'"></app-category-form>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>
