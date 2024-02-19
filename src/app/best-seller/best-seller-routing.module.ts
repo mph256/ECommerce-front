@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { BestSellersComponent } from './components/best-sellers/best-sellers.component';
+
+const routes: Routes = [
+  { path: '', component: BestSellersComponent }
+];
 
 @NgModule({
   imports: [

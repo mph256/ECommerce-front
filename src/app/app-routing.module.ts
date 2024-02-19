@@ -46,6 +46,10 @@ const routes: Routes = [
     canActivate: [authenticationGuard],
     loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) 
   },
+  { 
+    path: 'best-sellers', 
+    loadChildren: () => import('./best-seller/best-seller.module').then(m => m.BestSellerModule) 
+  },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 
   }
