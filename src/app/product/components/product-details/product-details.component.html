@@ -1,0 +1,123 @@
+<div class="container">
+    <ng-container *ngIf="product$ | async as product">
+        <div class="row">
+            <div class="images">
+                <div class="thumbnails">
+                    <img *ngFor="let image of product.images" [src]="image.file" [alt]="product.name" (click)="onImageChange(image)" class="thumbnail">
+                </div>
+                <img [src]="imageToShow.file" [alt]="product.name" class="image">
+            </div>
+            <mat-card class="information">
+                <mat-card-header>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                    <div class="rating">
+                        <app-rating [rating]="product.rating ? product.rating-1 : -1" [readOnly]="true"></app-rating>
+                        <div class="length">
+                            <ng-container *ngIf="(product.reviews?.length || 0) > 1; else oneRatingLabel">
+                                {{ product.reviews?.length }} ratings
+                            </ng-container>
+                            <ng-template #oneRatingLabel>
+                                {{ product.reviews?.length || '0' }} rating
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="price">
+                        {{ product.price | currency: 'EUR' }}
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="description">
+                        {{ product.description }}
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <mat-card [ngClass]="!loading ? 'form' : 'form-loading'">
+                <ng-container *ngIf="product.quantityAvailable > 0; else outOfStock">
+                    <div class="status-1">
+                        In Stock
+                    </div>
+                    <form [formGroup]="itemForm">
+                        <div class="form-row">
+                            <ng-container *ngIf="10 > itemForm.value.quantity; else textInput">  
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Quantity</mat-label>
+                                    <mat-select matInput [formControl]="quantityCtrl">
+                                        <mat-option *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9]" [value]="i" [disabled]="i > product.quantityAvailable">{{ i }}</mat-option>
+                                        <mat-option [value]="10" [disabled]="10 > product.quantityAvailable">10+</mat-option>
+                                    </mat-select>
+                                    <mat-error>{{ getFormControlErrorText(quantityCtrl) }}</mat-error>
+                                </mat-form-field>
+                            </ng-container>
+                            <ng-template #textInput>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Quantity</mat-label>
+                                    <input type="number" min="1" [max]="product.quantityAvailable" matInput [formControl]="quantityCtrl">
+                                    <mat-error>{{ getFormControlErrorText(quantityCtrl) }}</mat-error>
+                                </mat-form-field>
+                            </ng-template>
+                        </div>
+                        <div class="form-row">
+                            <mat-checkbox formControlName="isGift" class="checkbox">
+                                Is it a gift ?
+                            </mat-checkbox>
+                        </div>
+                        <div class="form-row form-actions">
+                            <button mat-flat-button (click)="onAddToCart(product)" [disabled]="itemForm.invalid || loading" [ngClass]="{ btn: itemForm.valid && !loading }">Add to Cart</button>
+                            <button mat-flat-button (click)="onBuyNow(product)" [disabled]="itemForm.invalid || loading" [ngClass]="{ btn: itemForm.valid && !loading }">Buy Now</button>
+                        </div>
+                        <div class="form-row form-spinner" *ngIf="loading">
+                            <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                        </div>
+                    </form>
+                </ng-container>
+                <ng-template #outOfStock>
+                    <div class="status-2">
+                        Out of Stock
+                    </div>
+                </ng-template>
+            </mat-card>
+        </div>
+        <div class="row">
+            <mat-card class="details">
+                <mat-card-header>
+                    <mat-card-title>Details</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-list>
+                        <ng-container *ngIf="product.dimensions">
+                            <mat-list-item>Dimensions: {{ product.dimensions }}</mat-list-item>
+                            <mat-divider></mat-divider>
+                        </ng-container>
+                        <ng-container *ngIf="product.weight">
+                            <mat-list-item>Weight: {{ product.weight }}</mat-list-item>
+                            <mat-divider></mat-divider>
+                        </ng-container>
+                        <mat-list-item>
+                            <ng-container *ngIf="product.categories.length > 1; else category">
+                                Categories: 
+                                <ng-container *ngFor="let category of product.categories; let index = index">
+                                    <ng-container *ngIf="product.categories.length - 1 !== index; else lastCategory">{{ category.name }}, </ng-container>
+                                    <ng-template #lastCategory>{{ category.name }}</ng-template>
+                                </ng-container>
+                            </ng-container>
+                            <ng-template #category>Category: {{ product.categories[0].name }}</ng-template>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>Country of Origin: {{ product.countryOfOrigin }}</mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>Manufacturer: {{ product.manufacturer }}</mat-list-item>
+                        <mat-divider></mat-divider>
+                        <mat-list-item>Seller: {{ product.seller.username }}</mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="row">
+            <app-rating-statistics></app-rating-statistics>
+            <app-review-list></app-review-list>
+        </div>
+        <div class="row" *ngIf="showReviewForm">
+            <app-review-form [productId]="product.id" id="form-review"></app-review-form>
+        </div>
+    </ng-container>
+</div>

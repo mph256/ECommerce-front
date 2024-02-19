@@ -1,0 +1,168 @@
+.container {
+    margin: 2em;
+}
+
+.row, .form-row {
+    display: flex;
+}
+
+.row:not(:last-child) {
+    margin-bottom: 1em;
+}
+
+.center-x {
+    justify-content: center;
+}
+
+.thumbnails {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .thumbnail {
+
+        height: 3em;
+        width: 3em;
+        border: 1px solid #000000;
+        border-radius: 10%;
+        margin-bottom: .5em;
+        cursor: pointer;
+
+        &:hover {
+            border: 1px solid #3a8eba;
+        }
+
+    }
+
+}
+
+.images {
+
+    display: flex;
+
+    .image {
+
+        height: 21em;
+        width: 21em;
+        border-radius: 1%;
+        margin-left: 1em;
+
+    }
+
+}
+
+.information, .details, app-review-list, app-review-form {
+    width: 90em;
+    min-width: 15.7em;
+}
+
+.information {
+
+    margin-left: 1em;
+
+    .rating {
+        display: flex;
+    }
+
+    .price {
+        font-weight: 500;
+        margin-top: -.4em;
+    }
+
+    .description {
+        margin-top: 1em;
+    }
+
+    mat-card-header {
+        flex-direction: column;
+    }
+
+}
+
+.form, .form-loading {
+
+    min-width: 18em;
+    padding: 1em;
+    margin-left: 1em;
+    
+    .status-1 {
+        color: #50C878;
+        margin-bottom: 1.5em;
+    }
+    
+    .status-2 {
+        color: #d22b2b;
+    }
+
+    .form-actions {
+        justify-content: center;
+        margin-top: .5em;
+    }
+
+    .form-actions button:nth-child(2) {
+        margin-left: .5em;
+    }
+
+    .form-spinner {
+        justify-content: center;
+        margin-top: 1.5em;
+    }
+
+    .checkbox {
+        margin: -.5em 0 0 -.6em;
+    }
+
+    .btn {
+        background-color: #3a8eba;
+        color: #ffffff;
+    }
+
+    ::ng-deep .mat-mdc-text-field-wrapper {
+        height: 2.5em;
+    }
+    
+    ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+        padding-bottom: 16px; 
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 9px;
+    }
+
+    mat-form-field {
+        width: 16em;
+    }
+
+}
+
+.form {
+    height: 14.5em;
+}
+
+.form-loading {
+    height: 21em;
+}
+
+.details {
+
+    margin: 0 19em 0 26.1em;
+
+    mat-list-item {
+        padding: 0;
+    }
+
+}
+
+app-rating-statistics {
+    width: 25.1em;
+    min-width: 25.1em;
+}
+
+app-review-list {
+    margin: 0 19em 0 1em;
+}
+
+app-review-form {
+    margin: 0 19em 0 26.1em;
+}

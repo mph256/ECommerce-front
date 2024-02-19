@@ -1,0 +1,32 @@
+<mat-card *ngIf="reviews$ | async as reviews" class="statistics">
+    <mat-card-header>
+        <mat-card-title>{{ rating | number: '1.0-0' }} out of 5 stars</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <app-rating [rating]="rating - 1" [readOnly]="true"></app-rating>
+            <div class="length">
+                <ng-container *ngIf="reviews.length > 1; else oneRatingLabel">
+                    {{ reviews.length }} ratings
+                </ng-container>
+                <ng-template #oneRatingLabel>
+                    {{ reviews.length }} rating
+                </ng-template>
+            </div>
+        </div>
+        <div *ngFor="let i of [5, 4, 3, 2, 1]" class="row space-between-x center-y">
+            <div class="stars">
+                <ng-container *ngIf="i > 1; else oneStarLabel">
+                    {{ i }} stars
+                </ng-container>
+                <ng-template #oneStarLabel>
+                    {{ i }} star     
+                </ng-template>
+            </div>
+            <mat-progress-bar mode="determinate" [value]="percentages[i-1] * 100" class="bar-progress"></mat-progress-bar>
+            <div class="percentage">
+                {{ percentages[i-1] | percent }}
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

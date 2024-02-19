@@ -14,6 +14,13 @@ const routes: Routes = [
     path: 'sign-in', 
     loadChildren: () => import('./sign-in/sign-in.module').then(m => m.SignInModule) 
   },
+  { 
+    path: 'categories', 
+    loadChildren: () => import('./product/product.module').then(m => m.ProductModule) 
+  },
+  { path: 'products', 
+    loadChildren: () => import('./product/product.module').then(m => m.ProductModule) 
+  },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 
   }

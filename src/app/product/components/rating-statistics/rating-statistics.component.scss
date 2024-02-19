@@ -1,0 +1,29 @@
+.row {
+    display: flex;
+}
+
+.space-between-x {
+    justify-content: space-between;
+}
+
+.center-y {
+    align-items: center;
+}
+
+.statistics {
+
+    .stars {
+        width: 3.1em;
+    }
+
+    .bar-progress {
+        width: 15.6em;
+        margin-left: .5em;
+    }
+
+    .percentage {
+        width: 2em;
+        margin-left: .5em;
+    }
+
+}
