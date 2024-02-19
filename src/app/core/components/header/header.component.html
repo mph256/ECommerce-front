@@ -1,0 +1,69 @@
+<header>
+    <mat-toolbar class="toolbar-1">
+        <h1 (click)="onGoHome()" class="mat-h1">E-commerce</h1>
+        <span class="spacer"></span>
+        <form [formGroup]="searchForm" class="form">
+            <div class="form-column">
+                <mat-form-field appearance="outline">
+                    <mat-select matInput placeholder="Category" formControlName="category">
+                        <mat-option *ngFor="let category of categories$ | async" [value]="category">{{ category.name | titlecase }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <hr>
+            <div class="form-column">
+                <mat-form-field appearance="outline">
+                    <input type="search" matInput placeholder="Search" formControlName="search"> 
+                </mat-form-field>
+            </div>
+            <div class="form-column form-actions">
+                <button mat-button matSuffix (click)="onSearch()" class="btn-search">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </div>
+        </form>
+        <ul>
+            <li><a mat-button routerLink="/account">Account</a></li>
+            <li><a mat-button routerLink="/orders">Orders</a></li>
+            <li>
+                <a mat-button routerLink="/cart" class="cart" *ngIf="cart$ | async as cart">
+                    Cart 
+                    <span class="icon">
+                        <mat-icon [matBadge]="productsInCart" [matBadgeHidden]="productsInCart === 0" matBadgeColor="warn" matBadgeSize="small" [attr.aria-hidden]="productsInCart === 0" aria-hidden="false">shopping_cart</mat-icon>
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </mat-toolbar>
+    <mat-toolbar class="toolbar-2">
+        <ul>
+            <li>
+                <button mat-button (click)="sidenav.toggle()" class="btn-toggle">
+                    <mat-icon>list</mat-icon>
+                </button>
+            </li>
+            <li><a mat-button routerLink="/best-sellers">Best Sellers</a></li>
+            <li><a mat-button routerLink="/new-releases">New Releases</a></li>
+            <li *ngIf="isSeller"><a mat-button routerLink="/seller">Sell</a></li>
+            <li *ngIf="isAdmin"><a mat-button routerLink="/admin">Admin</a></li>
+        </ul>
+    </mat-toolbar>
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav #sidenav mode="side" class="sidenav">
+            <mat-nav-list>
+                <a mat-list-item routerLink="/account">Your Account</a>
+                <a mat-list-item routerLink="/orders">Your Orders</a>
+                <a mat-list-item routerLink="/returns">Your Returns</a>
+                <ng-container *ngIf="!isAuthenticated; else signOut">
+                    <a mat-list-item routerLink="/sign-in">Sign In</a>
+                </ng-container>
+                <ng-template #signOut>
+                    <a mat-list-item (click)="onSignOut()">Sign Out</a>
+                </ng-template>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</header>

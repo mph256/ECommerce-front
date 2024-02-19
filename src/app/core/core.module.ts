@@ -9,8 +9,12 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
+import { HeaderComponent } from './components/header/header.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    HeaderComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -18,7 +22,9 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ReactiveFormsModule,
     SharedModule
   ],
-  exports: [],
+  exports: [
+    HeaderComponent
+  ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
