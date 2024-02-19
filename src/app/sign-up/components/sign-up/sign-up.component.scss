@@ -1,0 +1,71 @@
+.container {
+    margin: 2em;
+}
+
+.row, .form-row {
+    display: flex;
+}
+
+.center-x {
+    justify-content: center;
+}
+
+.form {
+
+    .form-row mat-form-field:nth-child(2) {
+        margin-left: .5em;
+    }
+
+    .form-message {
+        justify-content: center;
+        color: #e74c3c;
+        margin: -.5em 0 1em;
+    }
+
+    .form-actions {
+        justify-content: end;
+    }
+
+    .form-actions button:nth-child(2) {
+        margin-left: .5em;
+    }
+
+    .form-spinner {
+        justify-content: center;
+        margin-top: 1.5em;
+    }
+
+    .btn { 
+        background-color: #3a8eba;
+        color: #ffffff;
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper {
+        height: 2.5em;
+    }
+    
+    ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+        padding-bottom: 16px; 
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 9px;
+    }
+
+    mat-form-field  {
+        width: 24em;
+    }
+
+}
+
+mat-card {
+
+    width: 51.5em;
+    padding: .5em;
+
+    mat-card-header {
+        justify-content: center;
+        margin-bottom: 1.5em;
+    }
+
+}
