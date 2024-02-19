@@ -33,6 +33,11 @@ const routes: Routes = [
     canActivate: [authenticationGuard],
     loadChildren: () => import('./order/order.module').then(m => m.OrderModule) 
   },
+  { 
+    path: 'returns', 
+    canActivate: [authenticationGuard],
+    loadChildren: () => import('./return/return.module').then(m => m.ReturnModule) 
+  },
   { path: 'cart', 
     loadChildren: () => import('./cart/cart.module').then(m => m.CartModule) 
   },
