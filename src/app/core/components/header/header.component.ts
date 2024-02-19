@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
@@ -36,6 +36,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
 
     this.initForm();
+
+    this.categoryService.getCategories();
+    this.categories$ = this.categoryService.categories$;
 
     this.cartService.getCartByUserUsername((this.authService.isAuthenticated())?this.authService.getUserUsername():'');
     this.cart$ = this.cartService.cart$.pipe(

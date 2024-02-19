@@ -11,11 +11,15 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CategoryListComponent } from './components/category-list/category-list.component';
+import { CategoryComponent } from './components/category/category.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    CategoryListComponent,
+    CategoryComponent
   ],
   imports: [
     CommonModule,

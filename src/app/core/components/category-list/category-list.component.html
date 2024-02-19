@@ -1,0 +1,23 @@
+<div class="container">
+    <ng-container *ngIf="categories$ | async as categories">
+        <ng-container *ngIf="categories.length > 0; else empty">
+            <mat-grid-list [cols]="cols" rowHeight="25em" (window:resize)="onResize($event)">
+                <mat-grid-tile *ngFor="let category of categoriesToShow">
+                    <app-category [category]="category"
+                        (viewCategoryEvent)="onViewCategory($event)">
+                    </app-category>
+                </mat-grid-tile>
+            </mat-grid-list>
+            <mat-paginator [length]="categories.length" 
+                pageIndex="0" [pageSize]="categoriesPerPage" hidePageSize="true" [pageSizeOptions]="[categoriesPerPage]" showFirstLastButtons="true"
+                (page)="onPage($event, categories)" 
+                *ngIf="categories.length > categoriesPerPage">
+            </mat-paginator>
+        </ng-container>
+        <ng-template #empty>
+            <p class="empty">
+                No categories yet.
+            </p>
+        </ng-template>
+    </ng-container>
+</div>
