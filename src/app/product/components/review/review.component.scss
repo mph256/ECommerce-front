@@ -1,0 +1,19 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+.review {
+
+    .rating {
+        margin-top: .3em;
+    }
+
+    .content {
+        margin-top: .5em;
+    }
+
+    button mat-icon {
+        margin: 0;
+    }
+
+}

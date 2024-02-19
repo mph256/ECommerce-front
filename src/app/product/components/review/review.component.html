@@ -1,0 +1,32 @@
+<mat-card class="review">
+    <mat-card-header>
+        <mat-card-title>{{ review.user.username }}</mat-card-title>
+        <ng-container *ngIf="username === review.user.username">
+            <span class="spacer"></span>
+            <button type="button" mat-flat-button (click)="onUpdateReview()">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button type="button" mat-flat-button (click)="onDeleteReview()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </ng-container>
+    </mat-card-header>
+    <mat-card-content>
+        <ng-container *ngIf="!updateInProgress; else updateForm">
+            <div class="date-update-last">
+                {{ review.lastUpdate | timeAgo }}
+            </div>
+            <div class="rating">
+                <app-rating [rating]="review.rating - 1" [readOnly]="true"></app-rating> 
+            </div>
+            <div class="content">
+                {{ review.content }}
+            </div>
+        </ng-container>
+        <ng-template #updateForm>
+            <app-review-form [productId]="review.productId" [review]="review" 
+                (cancelEvent)="onCancel()">
+            </app-review-form>
+        </ng-template>
+    </mat-card-content>
+</mat-card>
