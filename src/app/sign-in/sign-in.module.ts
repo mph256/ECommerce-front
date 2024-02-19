@@ -5,8 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SignInRoutingModule } from './sign-in-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+import { SignInComponent } from './components/sign-in/sign-in.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    SignInComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
