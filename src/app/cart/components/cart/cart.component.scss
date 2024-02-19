@@ -1,0 +1,46 @@
+.container {
+    margin: 2em;
+}
+
+.row {
+    display: flex;
+}
+
+.center-x {
+    justify-content: center;
+}
+
+.empty {
+
+    width: 69em;
+    min-width: 7.4em;
+    text-align: center;
+
+    mat-card-header {
+        margin-bottom: 1em;
+    }
+
+}
+
+.total {
+
+    height: 7em;
+    width: 14em;
+    min-width: 14em;
+    margin-left: 1em;
+
+    .price {
+        font-weight: 500;
+    }
+
+    .btn {
+        background-color: #3a8eba;
+        color: #ffffff;
+    }
+
+    mat-card-actions {
+        justify-content: center;
+        margin-top: .8em;
+    }
+
+}

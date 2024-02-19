@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row center-x">
+        <ng-container *ngIf="cart$ | async as cart">
+            <ng-container *ngIf="cart.items.length > 0; else empty">
+                <div class="cart">
+                    <h2 class="mat-h2">Your Cart</h2>
+                    <app-item-list [page]="'cart'"></app-item-list>
+                </div>
+            </ng-container>
+            <ng-template #empty>
+                <mat-card class="empty">
+                    <mat-card-header>
+                        <mat-card-title>Your Cart</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        Empty cart.
+                    </mat-card-content>
+                </mat-card>
+            </ng-template>
+            <mat-card class="total">
+                <mat-card-content>
+                    Total: <span class="price">{{ cart.amount | currency: 'EUR' }}</span>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button type="button" mat-raised-button (click)="onCheckout()" [disabled]="cart.items.length === 0" [ngClass]="{ btn: cart.items.length > 0 }">Proceed to Checkout</button>
+                </mat-card-actions>
+            </mat-card>
+        </ng-container>
+    </div>
+</div>

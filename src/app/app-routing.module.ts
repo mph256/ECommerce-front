@@ -28,6 +28,9 @@ const routes: Routes = [
     canActivate: [authenticationGuard],
     loadChildren: () => import('./account/account.module').then(m => m.AccountModule) 
   },
+  { path: 'cart', 
+    loadChildren: () => import('./cart/cart.module').then(m => m.CartModule) 
+  },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 
   }
