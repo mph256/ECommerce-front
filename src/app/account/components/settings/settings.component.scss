@@ -1,0 +1,38 @@
+.container {
+    margin: 2em;
+}
+
+.row {
+    display: flex;
+}
+
+.center-x {
+    justify-content: center;
+}
+
+.center-y {
+    align-items: center;
+}
+
+.baseline-y {
+    align-items: baseline;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.user {
+
+    width: 40em;
+    padding: 1em;
+
+    .label {
+        font-weight: 500;
+    }
+
+}
+
+mat-divider {
+    margin: 1em -1em 1em;
+}

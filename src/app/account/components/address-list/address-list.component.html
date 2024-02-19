@@ -1,0 +1,27 @@
+<div class="container">
+    <h2 class="mat-h2">Addresses</h2>
+    <ng-container *ngIf="addresses$ | async as addresses">
+        <mat-grid-list [cols]="cols" rowHeight="10em" gutterSize="1em" (window:resize)="onResize($event)">
+            <mat-grid-tile>
+                <mat-card (click)="onAddAddress()">
+                    <div class="label">
+                        Add Address
+                    </div>
+                    <mat-icon>add</mat-icon>
+                </mat-card>
+            </mat-grid-tile>
+            <mat-grid-tile *ngFor="let address of addressesToShow">
+                <app-address [address]="address"
+                    (editAddressEvent)="onEditAddress($event)" 
+                    (deleteAddressEvent)="onDeleteAddress($event)"
+                    (setDefaultAddressEvent)="onSetDefaultAddress($event)">
+                </app-address>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-paginator [length]="addresses.length" 
+            pageIndex="0" [pageSize]="addressesPerPage" hidePageSize="true" [pageSizeOptions]="[addressesPerPage]" showFirstLastButtons="true"
+            (page)="onPage($event, addresses)" 
+            *ngIf="addresses.length > addressesPerPage">
+        </mat-paginator>
+    </ng-container>
+</div>

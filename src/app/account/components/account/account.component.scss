@@ -1,0 +1,21 @@
+.container {
+    margin: 2em;
+}
+
+.orders, .credit-cards, .addresses, .settings {
+
+    justify-content: center;
+    align-items: center;
+    height: 99%;
+    width: 99%;
+    cursor: pointer;
+
+    mat-card-header {
+        margin-bottom: 1em;
+    }
+
+}
+
+mat-grid-tile {
+    min-width: 18.6em;
+}

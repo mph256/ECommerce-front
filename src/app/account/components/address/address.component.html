@@ -1,0 +1,21 @@
+<mat-card class="address">
+    <mat-card-content>
+        <div class="name">
+            {{ address.name }}
+        </div>
+        <div class="street">
+            {{ address.street }}
+        </div>
+        <div class="city">
+            {{ address.city }} {{ address.zipcode }}
+        </div>
+        <div class="country">
+            {{ address.country.name }}
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button type="button" mat-flat-button (click)="onEditAddress()">Edit</button>|
+        <button type="button" mat-flat-button (click)="onDeleteAddress()">Delete</button>|
+        <button type="button" mat-flat-button (click)="onSetDefaultAddress()">Set as Default</button>
+    </mat-card-actions>
+</mat-card>

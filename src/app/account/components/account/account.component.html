@@ -1,0 +1,44 @@
+<div class="container">
+    <mat-grid-list [cols]="cols" rowHeight="10em" gutterSize="1em" (window:resize)="onResize($event)">
+        <mat-grid-tile>
+            <mat-card (click)="onClick('orders')" class="orders">
+                <mat-card-header>
+                    <mat-card-title>Your Orders</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    View, Track or Cancel an Order
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card (click)="onClick('credit-cards')" class="credit-cards">
+                <mat-card-header>
+                    <mat-card-title>Wallet</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    Manage Credit Cards
+                </mat-card-content>      
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card (click)="onClick('addresses')" class="addresses">
+                <mat-card-header>
+                    <mat-card-title>Address Book</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    Manage Addresses
+                </mat-card-content>         
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card (click)="onClick('settings')" class="settings">
+                <mat-card-header>
+                    <mat-card-title>Settings</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    Edit Name, Email, Phone & Password
+                </mat-card-content>  
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

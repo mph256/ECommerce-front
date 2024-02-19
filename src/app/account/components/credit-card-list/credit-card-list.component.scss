@@ -1,0 +1,23 @@
+.container {
+    min-width: 44.8em;
+    overflow-y: hidden;
+    margin: 2em;
+}
+
+.row {
+    display: flex;
+}
+
+.center-y {
+    align-items: center;
+}
+
+.table {
+
+    .image {
+        height: 2.5em;
+        width: auto;
+        margin-right: .5em;
+    }
+
+}

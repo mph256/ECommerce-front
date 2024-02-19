@@ -1,0 +1,17 @@
+.address {
+
+    height: 10em;
+    min-width: 19.2em;
+    border: 1px solid #000000;
+    cursor: pointer;
+
+    .name {
+        font-weight: 500;
+        margin-bottom: .5em;
+    }
+
+    mat-card-actions {
+        margin: auto;
+    }
+
+}
