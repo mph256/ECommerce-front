@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 
+import { ReviewService } from './services/review/review.service';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -11,6 +13,8 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     SharedModule
   ],  
-  providers: []
+  providers: [
+    ReviewService
+  ]
 })
 export class ProductModule { }
