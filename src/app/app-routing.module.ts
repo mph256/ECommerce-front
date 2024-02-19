@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { authenticationGuard } from './core/guards/authentication/authentication.guard';
+import { authorizationGuard } from './core/guards/authorization/authorization.guard';
 
 import { HomeComponent } from './core/components/home/home.component';
 
@@ -53,6 +54,11 @@ const routes: Routes = [
   { 
     path: 'new-releases', 
     loadChildren: () => import('./new-release/new-release.module').then(m => m.NewReleaseModule) 
+  },
+  { 
+    path: 'sell', 
+    canActivate: [authenticationGuard, authorizationGuard], data: { role: 'SELLER' },
+    loadChildren: () => import('./sell/sell.module').then(m => m.SellModule) 
   },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 

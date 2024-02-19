@@ -1,0 +1,115 @@
+<form [formGroup]="productForm" class="form">
+    <ng-container *ngIf="'delete' !== formType; else deleteForm">
+        <div class="form-row" *ngIf="'update' === formType">
+            <mat-form-field appearance="outline">
+                <mat-label>Product</mat-label>
+                <mat-select matInput formControlName="product" #selectedProduct (valueChange)="onProductChange(selectedProduct.value)">
+                    <mat-option *ngFor="let product of products$ | async" [value]="product">{{ product.name }}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input type="text" minlength="3" maxlength="50" matInput [formControl]="nameCtrl">
+                <mat-error>{{ getFormControlErrorText(nameCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="textarea">
+                <mat-label>Description</mat-label>
+                <textarea matInput minlength="3" maxlength="255" [formControl]="descriptionCtrl"></textarea>
+                <mat-error>{{ getFormControlErrorText(descriptionCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Dimensions</mat-label>
+                <input type="text" minlength="3" maxlength="100" matInput [formControl]="dimensionsCtrl">
+                <mat-error>{{ getFormControlErrorText(dimensionsCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Weight (lb)</mat-label>
+                <input type="number" min="1" matInput [formControl]="weightCtrl">
+                <mat-error>{{ getFormControlErrorText(weightCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Country of Origin</mat-label>
+                <input type="text" minlength="3" maxlength="52" matInput [formControl]="countryOfOriginCtrl">
+                <mat-error>{{ getFormControlErrorText(countryOfOriginCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Manufacturer</mat-label>
+                <input type="text" minlength="3" maxlength="50" matInput [formControl]="manufacturerCtrl">
+                <mat-error>{{ getFormControlErrorText(manufacturerCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Quantity</mat-label>
+                <input type="number" min="1" matInput [formControl]="quantityAvailableCtrl">
+                <mat-error>{{ getFormControlErrorText(quantityAvailableCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Price (€)</mat-label>
+                <input type="number" min="1" matInput [formControl]="priceCtrl">
+                <mat-error>{{ getFormControlErrorText(priceCtrl) }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Categories</mat-label>
+                <mat-select matInput formControlName="categories" multiple>
+                    <mat-option *ngFor="let category of categories$ | async" [value]="category.id">{{ category.name }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Images</mat-label>
+                <input type="text" matInput readonly (click)="hiddenInput.click()" formControlName="images">
+                <mat-icon matSuffix>attach_file</mat-icon>
+                <input type="file" hidden #hiddenInput (change)="onFileChange($event)">
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+            <button type="button" mat-flat-button (click)="onResetFiles()" class="btn-reset">Reset</button>
+        </div>
+        <div class="form-row form-actions">
+            <ng-container *ngIf="'add' === formType; else updateForm">
+                <button mat-raised-button (click)="onSubmit()" [disabled]="productForm.invalid || loading" [ngClass]="{ btn: productForm.valid && !loading }">Add</button>
+            </ng-container>
+            <ng-template #updateForm>
+                <button mat-raised-button (click)="onSubmit()" [disabled]="productForm.invalid || loading" [ngClass]="{ btn: productForm.valid && !loading }">Update</button>
+            </ng-template>
+        </div>
+    </ng-container>
+    <ng-template #deleteForm>
+        <div class="form-row">
+            <mat-form-field appearance="outline" class="form-row">
+                <mat-label>Product</mat-label>
+                <mat-select matInput formControlName="product">
+                    <mat-option *ngFor="let product of products$ | async" [value]="product">{{ product.name }}</mat-option>
+                </mat-select>
+                <mat-error>This field is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-row form-actions">
+            <button mat-raised-button (click)="onSubmit()" [disabled]="productForm.invalid || loading" [ngClass]="{ btn: productForm.valid && !loading }">Delete</button>
+        </div>
+    </ng-template>
+    <div class="form-row form-spinner" *ngIf="loading">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <div class="form-row form-message" *ngIf="message && !loading">
+        <small>{{ message }}</small>
+    </div>
+</form>

@@ -9,8 +9,16 @@ import { OrderService } from './services/order/order.service';
 import { SuborderService } from './services/suborder/suborder.service';
 import { ProductService } from './services/product/product.service';
 
+import { SellComponent } from './components/sell/sell.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    SellComponent,
+    OrderListComponent,
+    ProductFormComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

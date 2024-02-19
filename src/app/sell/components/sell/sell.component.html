@@ -1,0 +1,21 @@
+<div class="container">
+    <app-order-list></app-order-list>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Manage products</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" dynamicHeight>
+                <mat-tab label="Add">
+                    <app-product-form [formType]="'add'"></app-product-form>
+                </mat-tab>
+                <mat-tab label="Update">
+                    <app-product-form [formType]="'update'"></app-product-form>
+                </mat-tab>
+                <mat-tab label="Delete">
+                    <app-product-form [formType]="'delete'"></app-product-form>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
+</div>

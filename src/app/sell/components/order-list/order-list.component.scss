@@ -1,0 +1,53 @@
+.late {
+    color: #e74c3c;
+}
+
+.table-items {
+    margin-bottom: 1em;
+}
+
+.element-row td {
+    border-bottom-width: 0;
+}
+
+.element-details {
+    display: flex;
+    overflow: hidden;
+}
+
+tr.element-row:not(.expanded-row):hover {
+    background: whitesmoke;
+}
+
+tr.element-row:not(.expanded-row):active {
+    background: #efefef;
+}
+
+tr.details-row {
+    height: 0;
+}
+
+.mat-cell {
+    text-align: center;
+    padding: 1.2em;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    height: 2.5em;
+}
+
+::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+    padding-bottom: 16px; 
+}
+
+::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+    padding-top: 9px;
+}
+
+mat-card-header {
+    margin-bottom: 2em;
+}
+
+mat-form-field {
+    width: 100%;
+}
