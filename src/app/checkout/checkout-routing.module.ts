@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+
+const routes: Routes = [
+  { path: 'confirmation', component: ConfirmationComponent },
+  { path: '', component: CheckoutComponent }
+];
 
 @NgModule({
   imports: [

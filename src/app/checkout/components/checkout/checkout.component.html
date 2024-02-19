@@ -1,0 +1,300 @@
+<div class="container">
+    <div class="row center-x">
+        <ng-container *ngIf="cart$ | async as cart">
+            <mat-stepper orientation="vertical" #stepper>
+                <ng-container *ngIf="addresses$ | async as addresses">
+                    <mat-step [stepControl]="mainShippingAddressForm" label="Shipping" errorMessage="Shipping address is required">
+                        <ng-container [ngSwitch]="activeShippingAddressForm">
+                            <mat-card class="shipping" *ngSwitchCase="'main'">
+                                <mat-card-content>
+                                    <form [formGroup]="mainShippingAddressForm" class="form form-address-shipping">
+                                        <div class="row baseline-y">
+                                            <span class="label">Shipping address:</span>
+                                            <div class="address" *ngIf="mainShippingAddressForm.value.address">
+                                                <div class="address-name">{{ mainShippingAddressForm.value.address.name }}</div>
+                                                <div class="address-street">{{ mainShippingAddressForm.value.address.street }}</div>
+                                                <div class="address-city">{{ mainShippingAddressForm.value.address.city }}, {{ mainShippingAddressForm.value.address.zipcode }}</div>
+                                                <div class="address-country">{{ mainShippingAddressForm.value.address.country.name }}</div>  
+                                            </div>
+                                            <span class="spacer"></span>
+                                            <button type="button" mat-flat-button (click)="onShowAddressForm('update', 'shipping')" class="btn-update">Update</button>
+                                        </div>
+                                    </form>
+                                </mat-card-content>
+                                <mat-card-footer>
+                                    <button type="button" mat-raised-button matStepperNext [disabled]="mainShippingAddressForm.invalid || loading" [ngClass]="{ btn: mainShippingAddressForm.valid && !loading }" class="btn-next">Next</button>
+                                </mat-card-footer>
+                            </mat-card>
+                            <mat-card class="shipping" *ngSwitchCase="'update-address-shipping'">
+                                <mat-card-content>
+                                    <form [formGroup]="updateShippingAddressForm" class="form form-address-shipping">
+                                        <div class="row baseline-y">
+                                            <label id="address-shipping">Select your shipping address</label>
+                                            <span class="spacer"></span>
+                                            <button type="button" mat-flat-button (click)="onShowAddressForm('main', 'shipping')" class="btn-close">
+                                                <mat-icon>close</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="form-row">
+                                            <mat-radio-group [formControl]="shippingAddressCtrl" aria-labelledby="address-shipping" class="column">
+                                                <mat-radio-button *ngFor="let address of addressesToShow" [value]="address">
+                                                    <span class="address-name">{{ address.name }}</span> {{ address.street }}, {{ address.city }} {{ address.zipcode }}, {{ address.country.name }}
+                                                </mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <mat-paginator [length]="addresses.length" 
+                                            pageIndex="0" [pageSize]="addressesPerPage" hidePageSize="true" [pageSizeOptions]="[addressesPerPage]" showFirstLastButtons="true"
+                                            (page)="onPageAddresses($event, addresses)" 
+                                            *ngIf="addresses.length > addressesPerPage">
+                                        </mat-paginator>
+                                        <button type="button" mat-flat-button (click)="onShowAddressForm('add', 'shipping')" class="btn-add">
+                                            <mat-icon>add</mat-icon>
+                                            Add address
+                                        </button>
+                                    </form>
+                                </mat-card-content>
+                            </mat-card>
+                            <app-address-form 
+                                (cancelEvent)="onShowAddressForm('main', 'shipping')" 
+                                *ngSwitchCase="'add-address-shipping'">
+                            </app-address-form>
+                        </ng-container>
+                    </mat-step>
+                    <mat-step [stepControl]="mainPaymentForm" label="Payment" errorMessage="Payment information are required">
+                        <ng-container *ngIf="creditCards$ | async as creditCards">
+                            <ng-container [ngSwitch]="activePaymentForm">
+                                <mat-card class="payment" *ngSwitchCase="'main'">
+                                    <mat-card-content>
+                                        <form [formGroup]="mainPaymentForm">
+                                            <form [formGroup]="mainCreditCardForm" class="form form-card-credit">
+                                                <div class="row center-y">
+                                                    <span class="label">Credit card:</span>
+                                                    <div class="card-credit">
+                                                        <span class="row center-y">
+                                                            <ng-container [ngSwitch]="mainCreditCardForm.value.creditCard?.type">
+                                                                <img src="/assets/images/visa.PNG" alt="Visa logo" *ngSwitchCase="'VISA'" class="image">     
+                                                                <img src="/assets/images/mastercard.PNG" alt="Mastercard logo" *ngSwitchCase="'MASTERCARD'" class="image">
+                                                                <img src="/assets/images/american_express.PNG" alt="American Express logo" *ngSwitchCase="'AMERICAN_EXPRESS'" class="image">
+                                                            </ng-container>
+                                                            {{ mainCreditCardForm.value.creditCard?.number | creditCard }}
+                                                        </span>
+                                                    </div>
+                                                    <span class="spacer"></span>
+                                                    <button type="button" mat-flat-button (click)="onShowCreditCardForm('update')" class="btn-update">Update</button>
+                                                </div>
+                                            </form>
+                                            <mat-divider></mat-divider>
+                                            <form [formGroup]="mainBillingAddressForm" class="form form-address-billing">
+                                                <div class="row baseline-y">
+                                                    <span class="label">Billing address:</span>
+                                                    <div class="address" *ngIf="mainBillingAddressForm.value.address">
+                                                        <div class="address-name">{{ mainBillingAddressForm.value.address.name }}</div>
+                                                        <div class="address-street">{{ mainBillingAddressForm.value.address.street }}</div>
+                                                        <div class="address-city">{{ mainBillingAddressForm.value.address.city }}, {{ mainBillingAddressForm.value.address.zipcode }}</div>
+                                                        <div class="address-country">{{ mainBillingAddressForm.value.address.country.name }}</div>  
+                                                    </div>
+                                                    <span class="spacer"></span>
+                                                    <button type="button" mat-flat-button (click)="onShowAddressForm('update', 'billing')" class="btn-update">Update</button>
+                                                </div>
+                                            </form>
+                                            <mat-divider></mat-divider>
+                                            <p>Add a gift card or promotion code</p>
+                                            <form [formGroup]="promotionForm" class="form form-promotion">
+                                                <div class="form-row">
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Code</mat-label>
+                                                        <input type="text" matInput [formControl]="promotionCtrl">
+                                                        <mat-error>{{ getFormControlErrorText(promotionCtrl) }}</mat-error>
+                                                    </mat-form-field>
+                                                    <button mat-flat-button (click)="onAddPromotion()" class="btn-apply">Apply</button>
+                                                </div>
+                                            </form>
+                                        </form>
+                                    </mat-card-content>
+                                    <mat-card-footer>
+                                        <button type="button" mat-raised-button matStepperNext [disabled]="mainPaymentForm.invalid || loading" [ngClass]="{ btn: mainPaymentForm.valid && !loading }" class="btn-next">Next</button>
+                                        <button type="button" mat-raised-button matStepperPrevious class="btn-back">Back</button>
+                                    </mat-card-footer>
+                                </mat-card>
+                                <mat-card class="payment" *ngSwitchCase="'update-card-credit'">
+                                    <mat-card-content>
+                                        <form [formGroup]="updateCreditCardForm" class="form form-card-credit">
+                                            <div class="row baseline-y">
+                                                <label id="card-credit">Select your credit or debit card</label>
+                                                <span class="spacer"></span>
+                                                <button type="button" mat-flat-button (click)="onShowPaymentForm()" class="btn-close">
+                                                    <mat-icon>close</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div class="table" *ngIf="dataSource && dataSource.data.length > 0">
+                                                <table mat-table [dataSource]="dataSource">
+                                                    <ng-container matColumnDef="select">
+                                                        <th mat-header-cell *matHeaderCellDef></th>
+                                                        <td mat-cell *matCellDef="let row">
+                                                            <mat-checkbox (click)="onCreditCardChange(row)" formControlName="creditCard"></mat-checkbox>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="number">
+                                                        <th mat-header-cell *matHeaderCellDef>Card number</th>
+                                                        <td mat-cell *matCellDef="let element">
+                                                            <div class="row center-y">
+                                                                <ng-container [ngSwitch]="element.type">
+                                                                    <img src="/assets/images/visa.PNG" alt="Visa logo" *ngSwitchCase="'VISA'" class="image">     
+                                                                    <img src="/assets/images/mastercard.PNG" alt="Mastercard logo" *ngSwitchCase="'MASTERCARD'" class="image">
+                                                                    <img src="/assets/images/american_express.PNG" alt="American Express logo" *ngSwitchCase="'AMERICAN_EXPRESS'" class="image">
+                                                                </ng-container>
+                                                                {{ element.number | creditCard }}
+                                                            </div>
+                                                        </td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="holderName">
+                                                        <th mat-header-cell *matHeaderCellDef>Name on card</th>
+                                                        <td mat-cell *matCellDef="let element">{{ element.holderName }}</td>
+                                                    </ng-container>
+                                                    <ng-container matColumnDef="expirationDate">
+                                                        <th mat-header-cell *matHeaderCellDef>Expiration date</th>
+                                                        <td mat-cell *matCellDef="let element">{{ element.expirationDate | date }}</td>
+                                                    </ng-container>
+                                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                                    <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="selection.toggle(row)"></tr>
+                                                </table>
+                                                <mat-paginator [length]="creditCards.length" 
+                                                    pageIndex="0" [pageSize]="creditCardsPerPage" hidePageSize="true" [pageSizeOptions]="[creditCardsPerPage]" showFirstLastButtons="true"
+                                                    (page)="onPageCreditCards($event, creditCards)" 
+                                                    *ngIf="creditCards.length > creditCardsPerPage">
+                                                </mat-paginator>
+                                            </div>
+                                            <button type="button" mat-flat-button (click)="onShowCreditCardForm('add')" class="btn-add">
+                                                <mat-icon>add</mat-icon>
+                                                Add card
+                                            </button>
+                                        </form>
+                                    </mat-card-content>
+                                </mat-card>
+                                <app-credit-card-form 
+                                    (cancelEvent)="onShowPaymentForm()" 
+                                    *ngSwitchCase="'add-card-credit'">
+                                </app-credit-card-form>
+                                <mat-card class="payment" *ngSwitchCase="'update-address-billing'">
+                                    <mat-card-content>
+                                        <form [formGroup]="updateBillingAddressForm" class="form form-address-billing">
+                                            <div class="row baseline-y">
+                                                <label id="address-billing">Select your billing address</label>
+                                                <span class="spacer"></span>
+                                                <button type="button" mat-flat-button (click)="onShowPaymentForm()" class="btn-close">
+                                                    <mat-icon>close</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div class="form-row">
+                                                <mat-radio-group [formControl]="billingAddressCtrl" aria-labelledby="address-billing" class="column">
+                                                    <mat-radio-button *ngFor="let address of addressesToShow" [value]="address">
+                                                        <span class="address-name">{{ address.name }}</span> {{ address.street }}, {{ address.city }} {{ address.zipcode }}, {{ address.country.name }}
+                                                    </mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                            <mat-paginator [length]="addresses.length" 
+                                                pageIndex="0" [pageSize]="addressesPerPage" hidePageSize="true" [pageSizeOptions]="[addressesPerPage]" showFirstLastButtons="true"
+                                                (page)="onPageAddresses($event, addresses)" 
+                                                *ngIf="addresses.length > addressesPerPage">
+                                            </mat-paginator>
+                                            <button type="button" mat-flat-button (click)="onShowAddressForm('add', 'billing')" class="btn-add">
+                                                <mat-icon>add</mat-icon>
+                                                Add address
+                                            </button>
+                                        </form>
+                                    </mat-card-content>
+                                </mat-card>
+                                <app-address-form 
+                                    (cancelEvent)="onShowPaymentForm()" 
+                                    *ngSwitchCase="'add-address-billing'">
+                                </app-address-form>
+                            </ng-container>
+                        </ng-container>
+                    </mat-step>
+                </ng-container>
+                <mat-step [stepControl]="deliveryOptionForm" label="Validation">
+                    <mat-card class="validation">
+                        <mat-card-content>
+                            <div class="date-delivery">
+                                Estimated delivery: {{ estimatedDeliveryDate | date }}
+                            </div>
+                            <form [formGroup]="deliveryOptionForm" class="form form-option-delivery">
+                                <div class="form-row">
+                                    <label id="option-delivery">Choose a delivery option:</label>
+                                    <mat-radio-group aria-labelledby="option-delivery" formControlName="deliveryOption">
+                                        <mat-radio-button *ngFor="let deliveryOption of deliveryOptions$ | async" [value]="deliveryOption" class="column option-delivery">
+                                            <span class="option-delivery-name">{{ deliveryOption.name | titlecase }}</span>
+                                            <span class="option-delivery-price">{{ deliveryOption.price | currency: 'EUR' }}</span>
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </form>
+                        </mat-card-content>
+                        <mat-card-footer>
+                            <button type="button" mat-raised-button matStepperPrevious class="btn-back">Back</button>
+                        </mat-card-footer>
+                    </mat-card>
+                    <mat-card class="items">
+                        <app-item-list [page]="'checkout'"></app-item-list>
+                    </mat-card>
+                </mat-step>
+            </mat-stepper>
+            <div>
+                <mat-card class="order-summary">
+                    <mat-card-header>
+                        <mat-card-title>Order Summary</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="products">
+                            <ng-container *ngIf="productsInCart > 1; else productLabel">
+                                Products ({{ productsInCart }}): 
+                            </ng-container>
+                            <ng-template #productLabel>
+                                Product ({{ productsInCart }}): 
+                            </ng-template>
+                            <span class="amount">{{ cart.amount | currency: 'EUR' }}</span>
+                        </div>
+                        <div class="shipping">          
+                            Shipping: <span class="amount">{{ deliveryOptionForm.value.deliveryOption?.price | currency: 'EUR' }}</span>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <ng-container *ngIf="promotion; else withoutPromotion">  
+                            <div class="promotion">
+                                Promotion: <span class="amount">- {{ cart.amount * (promotion.percentage / 100) | currency: 'EUR' }}</span>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="subtotal">
+                                Total before tax: <span class="amount">{{ cart.amount - (cart.amount * (promotion.percentage / 100)) + deliveryOptionForm.value.deliveryOption?.price | currency: 'EUR' }}</span>
+                            </div>
+                            <div class="tax">
+                                Estimated tax to be collected: <span class="amount" *ngIf="mainBillingAddressForm.value.address">{{ (cart.amount - (cart.amount * (promotion.percentage / 100)) + deliveryOptionForm.value.deliveryOption?.price) * (mainBillingAddressForm.value.address?.country.vat / 100) | currency: 'EUR' }}</span>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="total">
+                                Order total: <span class="amount" *ngIf="mainBillingAddressForm.value.address">{{ cart.amount - (cart.amount * (promotion.percentage / 100)) + deliveryOptionForm.value.deliveryOption?.price + (cart.amount - (cart.amount * (promotion.percentage / 100)) + deliveryOptionForm.value.deliveryOption?.price) * (mainBillingAddressForm.value.address?.country.vat / 100) | currency: 'EUR' }}</span>
+                            </div>
+                        </ng-container>
+                        <ng-template #withoutPromotion>   
+                            <div class="subtotal">
+                                Total before tax: <span class="amount">{{ cart.amount + deliveryOptionForm.value.deliveryOption?.price | currency: 'EUR' }}</span>
+                            </div>
+                            <div class="tax">
+                                Estimated tax to be collected: <span class="amount" *ngIf="mainBillingAddressForm.value.address">{{ (cart.amount + deliveryOptionForm.value.deliveryOption?.price) * (mainBillingAddressForm.value.address?.country.vat / 100) | currency: 'EUR' }}</span>
+                            </div>
+                            <mat-divider></mat-divider>
+                            <div class="total">
+                                Order total: <span class="amount" *ngIf="mainBillingAddressForm.value.address">{{ cart.amount + deliveryOptionForm.value.deliveryOption?.price + (cart.amount + deliveryOptionForm.value.deliveryOption?.price) * (mainBillingAddressForm.value.address?.country.vat / 100) | currency: 'EUR' }}</span>
+                            </div>
+                        </ng-template>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button type="button" mat-raised-button (click)="onOrder()" [disabled]="mainShippingAddressForm.invalid || mainPaymentForm.invalid || loading" [ngClass]="{ btn: mainShippingAddressForm.valid && mainPaymentForm.valid && !loading }">Place your order</button>
+                    </mat-card-actions>
+                    <mat-card-footer *ngIf="loading">
+                        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+        </ng-container>
+    </div>
+</div>

@@ -31,6 +31,11 @@ const routes: Routes = [
   { path: 'cart', 
     loadChildren: () => import('./cart/cart.module').then(m => m.CartModule) 
   },
+  { 
+    path: 'checkout', 
+    canActivate: [authenticationGuard],
+    loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) 
+  },
   { path: '**',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(m => m.PageNotFoundModule) 
   }

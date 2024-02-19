@@ -1,0 +1,225 @@
+.container {
+    margin: 2em;
+}
+
+.row, .form-row {
+    display: flex;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.center-x {
+    justify-content: center;
+}
+
+.center-y {
+    align-items: center;
+}
+
+.baseline-y {
+    align-items: baseline;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.form {
+
+    .form-row mat-form-field:nth-child(2) {
+        margin-left: .5em;
+    }
+
+    .label {
+        margin-right: .5em;
+    }
+
+    ::ng-deep .mat-mdc-text-field-wrapper {
+        height: 2.5em;
+    }
+    
+    ::ng-deep .mat-mdc-form-field:not(.mat-form-field-disabled) .mat-mdc-floating-label.mdc-floating-label {
+        padding-bottom: 16px; 
+    }
+    
+    ::ng-deep .mat-mdc-text-field-wrapper.mdc-text-field--outlined .mat-mdc-form-field-infix {
+        padding-top: 9px;
+    }
+
+}
+
+.btn {
+    background-color: #3a8eba;
+    color: #ffffff;
+}
+
+.shipping, .payment, .validation {
+
+    mat-card-footer {
+
+        background-color: #ecf0f1;
+        padding: 1em;
+
+        button:nth-child(2) {
+            margin-left: .5em;
+        }
+
+    }
+
+}
+
+.shipping, .payment  {
+
+    .form-address-shipping, .form-address-billing, .form-card-credit {
+
+        .btn-close mat-icon {
+            margin: 0;
+        }
+
+    }
+
+    .form-address-shipping, .form-address-billing {
+
+        label {
+            margin-bottom: 1em;
+        }
+    
+        .btn-add {
+            margin-top: .5em;
+        }
+    
+    }
+
+    .form-card-credit {
+
+        label {
+            margin-bottom: .5em;
+        }
+
+        .btn-add {
+            margin-top: .5em;
+        }
+
+    }
+
+    .address-name {
+        font-weight: 500;
+    }
+
+    mat-divider:first-of-type {
+        margin: 1em 0 .5em;
+    }
+
+    mat-divider:not(:first-of-type) {
+        margin: 1em 0 1em;
+    }
+
+}
+
+.shipping mat-card-footer {
+    margin-top: 1em;
+}
+
+.payment {
+
+    .image {
+        height: 2.5em;
+        width: auto;
+    }
+
+    .form-promotion {
+
+        .btn-apply {
+            margin: .2em 0 0 .5em;
+        }
+
+        mat-form-field {
+            width: 15em;
+        }
+
+    }
+
+}
+
+.validation {
+
+    margin-bottom: 1em !important;
+
+    .form-option-delivery {
+
+        label {
+            margin: .55em .4em 0 0;
+        }
+
+    }
+
+    .option-delivery:not(:first-child) {
+        margin-top: -.5em;
+    }
+
+    .option-delivery-price {
+        margin-left: .5em
+    }
+
+}
+
+.items {
+    padding: 1em;
+}
+
+.order-summary {
+
+    width: 20em;
+    margin-left: 1em;
+
+    .products, .shipping, .promotion, .subtotal, .tax, .total {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .products, .shipping, .promotion, .subtotal, .tax {
+        margin-bottom: .5em;
+    }
+
+    .total {
+        font-size: 1.2em;
+        font-weight: 500;
+        color: #d22b2b;
+    }
+
+    mat-card-header {
+        justify-content: center;
+        margin-bottom: 1em;
+    }
+
+    mat-card-actions {
+        margin: 1em auto 1em;
+    }
+
+    mat-card-footer {
+        display: flex;
+        justify-content: center;
+        margin: .5em 0 1.5em;
+    }
+
+    mat-divider {
+        margin: .5em 0 .5em;
+    }
+
+}
+
+mat-stepper {
+    width: 63em;
+    overflow-y: hidden;
+}
+
+mat-stepper mat-card, ::ng-deep app-address-form mat-card, ::ng-deep app-credit-card-form mat-card, ::ng-deep app-item-list mat-card {
+    width: 59.2em;
+}
+
+mat-stepper mat-card, ::ng-deep app-address-form mat-card, ::ng-deep app-credit-card-form mat-card {
+    margin: .5em 0 -1em;
+}

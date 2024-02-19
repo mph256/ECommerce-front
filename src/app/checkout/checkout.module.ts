@@ -9,8 +9,14 @@ import { PromotionService } from './services/promotion/promotion.service';
 import { DeliveryOptionService } from './services/delivery-option/delivery-option.service';
 import { OrderService } from './services/order/order.service';
 
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+    CheckoutComponent,
+    ConfirmationComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
