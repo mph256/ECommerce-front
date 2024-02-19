@@ -10,10 +10,12 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
     SharedModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },

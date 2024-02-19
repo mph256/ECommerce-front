@@ -1,0 +1,44 @@
+.section-1, .section-2 {
+    text-align: center;
+    padding: 1em;
+}
+
+.section-1 {
+    background-color: #2c3d75;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.section-2 {
+
+    background-color: #23315e;
+
+    .links {
+
+        a {
+
+            font-weight: normal;
+            color: #ffffff;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        
+        }
+
+    }
+
+    .copyright {
+        color: #ffffff;
+    }
+
+}
+
+mat-divider {
+    margin: 1em;
+}
+
+footer {
+    min-width: 65.6em;
+}
