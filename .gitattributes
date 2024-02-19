@@ -1,0 +1,9 @@
+* text=auto
+
+*.ts whitespace=space-before-tab,tab-in-indent,trailing-space,tabwidth=4
+*.scss whitespace=space-before-tab,tab-in-indent,trailing-space,tabwidth=4
+*.html whitespace=space-before-tab,tab-in-indent,trailing-space,tabwidth=4
+*.json whitespace=space-before-tab,tab-in-indent,trailing-space,tabwidth=4
+*.md whitespace=space-before-tab,tab-in-indent,trailing-space,tabwidth=4
+
+*.png binary
