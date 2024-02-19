@@ -5,6 +5,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
+import { UserService } from './services/user/user.service';
+import { RoleService } from './services/role/role.service';
+import { PromotionService } from './services/promotion/promotion.service';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -13,6 +17,10 @@ import { SharedModule } from '../shared/shared.module';
     AdminRoutingModule,
     SharedModule
   ],
-  providers: []
+  providers: [
+    UserService,
+    RoleService,
+    PromotionService
+  ]
 })
 export class AdminModule { }
