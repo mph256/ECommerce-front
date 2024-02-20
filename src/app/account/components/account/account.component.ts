@@ -30,7 +30,12 @@ export class AccountComponent implements OnInit {
   }
 
   onClick(param: string): void {
-    this.router.navigateByUrl(`/account/${param}`);
+
+    if('orders' === param)
+      this.router.navigateByUrl(`/${param}`);
+    else
+      this.router.navigateByUrl(`/account/${param}`);
+
   }
 
   onResize(event: any) {
